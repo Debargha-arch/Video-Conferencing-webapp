@@ -1,6 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import LobbyScreen from './Screens/LobbyScreen';
+import Lobby from './screens/Lobby';
+import Room from './screens/Room';
 
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <div className="App">
       VIDEO CALLING WEBAPP
       <Routes>
-        <Route path='/' element={<LobbyScreen />}></Route>
+        <Route path='/' element={<Lobby />}></Route>
+        <Route path='/room/:roomId' element={<Room />}></Route>
       </Routes>
     </div>
   );
