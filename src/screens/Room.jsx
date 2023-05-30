@@ -2,6 +2,37 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useSocket } from '../context/SocketProvider';
 import ReactPlayer from 'react-player';
 import peer from '../services/peer';
+import { Button, Card, IconButton, Paper, Typography } from '@mui/material';
+import CallIcon from '@mui/icons-material/Call';
+
+const head = {
+  backgroundColor: '#000',
+  height: '97vh'
+};
+
+const paper = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  backgroundColor: 'inherit',
+  marginTop: '8vh'
+};
+
+const card = {
+  backgroundColor: '#373c47'
+};
+
+const typography = {
+  color: '#fff'
+};
+
+const callButton = {
+  backgroundColor: 'red',
+  color: '#fff',
+  ":hover": {
+    backgroundColor: "#de474c",
+  }
+};
 
 const Room = () => {
 
@@ -100,29 +131,32 @@ const Room = () => {
   ]);
 
   return (
-    <div>
-        <h1>Room</h1>
-        <h4>{remoteSocketId ? "Connected" : "No one in room" }</h4>
+    <div style={head}>
+        <Typography variant='h4' sx={typography}>Room</Typography>
+        <Typography variant='body1' sx={typography}>{remoteSocketId ? "Connected" : "No one in room" }</Typography>
         {
-          remoteSocketId && <button onClick={handleCallUser}>CALL</button>
+          remoteSocketId && 
+          <IconButton sx={callButton} size='large' onClick={handleCallUser}>
+            <CallIcon fontSize='inherit'/>
+          </IconButton>
         }
-        { myStream && <button onClick={sendStream}>Send Stream</button>}
-        <>
+        { myStream && <Button variant='contained' onClick={sendStream}>Accept</Button>}
+        <Paper sx={paper}>
         {
           myStream && 
-          <>
+          <Card sx={card}>
             <ReactPlayer playing muted url={myStream}/>
-            <h5>You</h5>
-          </>
+            <Typography sx={typography}>You</Typography>
+          </Card>
         }
         {
           remoteStream && 
-          <>
+          <Card sx={card}>
             <ReactPlayer playing muted url={remoteStream}/>
-            <h5>Guest</h5>
-          </>
+            <Typography sx={typography}>Guest</Typography>
+          </Card>
         }
-        </>
+        </Paper>
     </div>
   )
 }
