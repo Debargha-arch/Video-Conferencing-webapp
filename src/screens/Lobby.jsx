@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSocket } from '../context/SocketProvider';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, CardActions, CardContent, Paper, TextField } from '@mui/material';
-// import Image from '../imgs/lobby-back.jpg'
+import { Button, Card, CardActions, CardContent, Paper, TextField, Typography } from '@mui/material';
+import Image from '../imgs/lobby-back.jpg'
 
 const paper = {
-  backgroundImage: 'url(${../imgs/lobby-back.jpg})',
+  background: `url(${Image})`,
+  height: '94vh',
+  width: '100vw'
 }
 
 const card = {
@@ -13,8 +15,17 @@ const card = {
   flexDirection: 'column',
   backgroundColor: '#373b42',
   color: '#fff',
-  margin: '0 30vw'
+  margin: '10vh 35vw'
 };
+
+const cardContent = {
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const textField = {
+  backgroundColor: '#fff'
+}
 
 const Lobby = () => {
 
@@ -47,19 +58,21 @@ const Lobby = () => {
     <Paper sx={paper}>
         <h1>Lobby</h1>
           <Card sx={card}>
-            <CardContent>
-            <label htmlFor='email'>Email ID: </label>
+            <CardContent sx={cardContent}>
+            <Typography>Email ID :</Typography>
             <TextField 
               type='email' 
               id='email' 
               value={email} 
+              sx={textField}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label htmlFor='room'>Room Number: </label>
+            <Typography>Room Number :</Typography>
             <TextField
               type='text'
               id='room'
               value={room}
+              sx={textField}
               onChange={(e) => setRoom(e.target.value)} 
             />
             </CardContent>
