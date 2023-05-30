@@ -1,6 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSocket } from '../context/SocketProvider';
 import { useNavigate } from 'react-router-dom';
+import { Button, Card, CardActions, CardContent, Paper, TextField } from '@mui/material';
+// import Image from '../imgs/lobby-back.jpg'
+
+const paper = {
+  backgroundImage: 'url(${../imgs/lobby-back.jpg})',
+}
+
+const card = {
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: '#373b42',
+  color: '#fff',
+  margin: '0 30vw'
+};
 
 const Lobby = () => {
 
@@ -30,27 +44,30 @@ const Lobby = () => {
   }, [socket, handleJoinRoom])
 
   return (
-    <div>
+    <Paper sx={paper}>
         <h1>Lobby</h1>
-        <form onSubmit={handleSubmitForm}>
+          <Card sx={card}>
+            <CardContent>
             <label htmlFor='email'>Email ID: </label>
-            <input
-             type='email'
-             id='email'
-             value={email}
-             onChange={(e) => setEmail(e.target.value)}
+            <TextField 
+              type='email' 
+              id='email' 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <br />
             <label htmlFor='room'>Room Number: </label>
-            <input 
-             type='text'
-             id='room'
-             value={room}
-             onChange={(e) => setRoom(e.target.value)}/>
-            <br />
-            <button>Join</button>
-        </form>
-    </div>
+            <TextField
+              type='text'
+              id='room'
+              value={room}
+              onChange={(e) => setRoom(e.target.value)} 
+            />
+            </CardContent>
+            <CardActions>
+              <Button onClick={handleSubmitForm}>Join</Button>
+            </CardActions>
+          </Card>
+    </Paper>
   )
 }
 
