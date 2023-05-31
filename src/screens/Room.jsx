@@ -4,17 +4,26 @@ import ReactPlayer from 'react-player';
 import peer from '../services/peer';
 import { Box, Button, Card, IconButton, Paper, Typography } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
-import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
 
 const head = {
   backgroundColor: '#33171d',
+  // height: {
+  //   sm: '97vh',
+  //   md: '97vh'
+  // }
   height: '97vh'
 };
 
 const paper = {
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: {
+    xs: 'column',
+    md: 'row',
+  },
   justifyContent: 'space-around',
   backgroundColor: 'inherit',
   marginTop: '6vh'
@@ -22,7 +31,8 @@ const paper = {
 
 const card = {
   backgroundColor: '#373c47',
-  padding: '1rem 0 0 0'
+  padding: '1rem 0 0 0',
+  borderRadius: '20px'
 };
 const box = {
   marginTop: '2vh'
@@ -49,6 +59,8 @@ const Room = () => {
   const [ remoteSocketId, setRemoteSocketId ] = useState(null);
   const [ myStream, setMyStream ] = useState();
   const [ remoteStream, setRemoteStream ] = useState();
+  const [ isAudioOn, setIsAudioOn ] = useState(true);
+  const [ isVideoOn, setIsVideoOn ] = useState(true);
 
   const socket = useSocket();
 
@@ -110,12 +122,14 @@ const Room = () => {
   const handleMuteAudio = useCallback(() => {
     console.log(`Audio: ${myStream.audio}`);
     myStream.getAudioTracks().forEach(track => track.enabled = !track.enabled);
-  }, [myStream])
+    setIsAudioOn(!isAudioOn);
+  }, [myStream, isAudioOn])
 
   const handleMuteVideo = useCallback(() => {
     console.log(`Video: ${myStream.video}`);
     myStream.getVideoTracks().forEach(track => track.enabled = !track.enabled);
-  }, [myStream])
+    setIsVideoOn(!isVideoOn)
+  }, [myStream, isVideoOn])
 
   const handleNegoFinal = useCallback( async ({ans}) => {
     await peer.setLocalDescription(ans);
@@ -178,8 +192,16 @@ const Room = () => {
         }
         </Paper>
         <Box sx={box}>
-          <IconButton sx={callButton} onClick={handleMuteAudio}><KeyboardVoiceIcon /></IconButton>
-          <IconButton sx={callButton} onClick={handleMuteVideo}><VideocamOutlinedIcon /></IconButton>
+          <IconButton sx={callButton} onClick={handleMuteAudio}>
+          {
+            isAudioOn ? <MicIcon /> : <MicOffIcon />
+          }
+          </IconButton>
+          <IconButton sx={callButton} onClick={handleMuteVideo}>
+          {
+            isVideoOn ? <VideocamOutlinedIcon /> :  <VideocamOffOutlinedIcon />
+          }
+          </IconButton>
         </Box>
     </div>
   )
