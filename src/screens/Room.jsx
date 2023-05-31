@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useSocket } from '../context/SocketProvider';
 import ReactPlayer from 'react-player';
 import peer from '../services/peer';
-import { Button, Card, IconButton, Paper, Typography } from '@mui/material';
+import { Box, Button, Card, IconButton, Paper, Typography } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
+import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 
 const head = {
-  backgroundColor: '#000',
+  backgroundColor: '#33171d',
   height: '97vh'
 };
 
@@ -15,12 +17,16 @@ const paper = {
   flexDirection: 'row',
   justifyContent: 'space-around',
   backgroundColor: 'inherit',
-  marginTop: '8vh'
+  marginTop: '6vh'
 };
 
 const card = {
-  backgroundColor: '#373c47'
+  backgroundColor: '#373c47',
+  padding: '1rem 0 0 0'
 };
+const box = {
+  marginTop: '2vh'
+}
 
 const typography = {
   color: '#fff'
@@ -31,7 +37,8 @@ const callButton = {
   color: '#fff',
   ":hover": {
     backgroundColor: "#de474c",
-  }
+  },
+  margin: '10px'
 };
 const acceptButton = {
   marginLeft: '20px'
@@ -100,6 +107,16 @@ const Room = () => {
     socket.emit('peer:nego:done', {to: from, ans});
   }, [socket])
 
+  const handleMuteAudio = useCallback(() => {
+    console.log(`Audio: ${myStream.audio}`);
+    myStream.getAudioTracks().forEach(track => track.enabled = !track.enabled);
+  }, [myStream])
+
+  const handleMuteVideo = useCallback(() => {
+    console.log(`Video: ${myStream.video}`);
+    myStream.getVideoTracks().forEach(track => track.enabled = !track.enabled);
+  }, [myStream])
+
   const handleNegoFinal = useCallback( async ({ans}) => {
     await peer.setLocalDescription(ans);
   }, [])
@@ -148,7 +165,7 @@ const Room = () => {
         {
           myStream && 
           <Card sx={card}>
-            <ReactPlayer playing muted url={myStream}/>
+            <ReactPlayer playing url={myStream} />
             <Typography sx={typography}>You</Typography>
           </Card>
         }
@@ -160,6 +177,10 @@ const Room = () => {
           </Card>
         }
         </Paper>
+        <Box sx={box}>
+          <IconButton sx={callButton} onClick={handleMuteAudio}><KeyboardVoiceIcon /></IconButton>
+          <IconButton sx={callButton} onClick={handleMuteVideo}><VideocamOutlinedIcon /></IconButton>
+        </Box>
     </div>
   )
 }
