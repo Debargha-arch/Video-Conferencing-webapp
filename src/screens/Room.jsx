@@ -33,6 +33,9 @@ const callButton = {
     backgroundColor: "#de474c",
   }
 };
+const acceptButton = {
+  marginLeft: '20px'
+}
 
 const Room = () => {
 
@@ -140,7 +143,7 @@ const Room = () => {
             <CallIcon fontSize='inherit'/>
           </IconButton>
         }
-        { myStream && <Button variant='contained' onClick={sendStream}>Accept</Button>}
+        { myStream && <Button variant='contained' sx={acceptButton} onClick={sendStream}>Accept</Button>}
         <Paper sx={paper}>
         {
           myStream && 
