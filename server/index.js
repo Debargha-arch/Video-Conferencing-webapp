@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on('peer:nego:done', ({to, ans}) => {
-        console.log({to, ans});
+        // console.log({to, ans});
         io.to(to).emit("peer:nego:final", {from: socket.id, ans});
     });
 })
