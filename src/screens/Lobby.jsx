@@ -15,17 +15,41 @@ const card = {
   flexDirection: 'column',
   backgroundColor: '#373b42',
   color: '#fff',
-  margin: '10vh 35vw'
+  height: {
+    sm: '27vh',
+    md: '38vh'
+  },
+  margin: {
+    sm: '20vh 20vw',
+    md: '10vh 35vw'
+  }
 };
 
 const cardContent = {
   display: 'flex',
   flexDirection: 'column',
 };
+const labToTexSpac = {
+  margin: '1.5vh 0 1vh 0',
+  // margin: {
+  //   sm: '1vh 0',
+  //   md: '4vh 0'
+  // }
+};
 
 const textField = {
-  backgroundColor: '#fff'
-}
+  backgroundColor: '#fff',
+  width: {
+    sm: '40vw',
+    md: '20vw'
+  }
+};
+
+const button = {
+  // display: 'flex',
+  // justifyContent: 'flex-end',
+  marginLeft: '24vw'
+};
 
 const Lobby = () => {
 
@@ -59,7 +83,8 @@ const Lobby = () => {
         <h1>Lobby</h1>
           <Card sx={card}>
             <CardContent sx={cardContent}>
-            <Typography>Email ID :</Typography>
+            <div style={labToTexSpac}>
+            <Typography variant='body1'>Email ID :</Typography>
             <TextField 
               type='email' 
               id='email' 
@@ -67,17 +92,20 @@ const Lobby = () => {
               sx={textField}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Typography>Room Number :</Typography>
+            </div>
+            <div style={labToTexSpac}>
+            <Typography variant='body1'>Room Number :</Typography>
             <TextField
               type='text'
               id='room'
               value={room}
               sx={textField}
-              onChange={(e) => setRoom(e.target.value)} 
+              onChange={(e) => setRoom(e.target.value)}
             />
+            </div>
             </CardContent>
             <CardActions>
-              <Button onClick={handleSubmitForm}>Join</Button>
+              <Button variant='contained' sx={button} onClick={handleSubmitForm}>Join</Button>
             </CardActions>
           </Card>
     </Paper>
