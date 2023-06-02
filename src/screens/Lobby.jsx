@@ -20,6 +20,7 @@ const card = {
     md: '38vh'
   },
   margin: {
+    xs: '20vh 20vw',
     sm: '20vh 20vw',
     md: '10vh 35vw'
   }
@@ -35,6 +36,17 @@ const labToTexSpac = {
   //   sm: '1vh 0',
   //   md: '4vh 0'
   // }
+};
+
+const typography = {
+  fontWeight: 'bold',
+  marginTop: {
+    xs: '9.5vh',
+    sm: '5vh',
+    md: '5vh',
+    lg: '5vh',
+    xl: '6vh'
+  },
 };
 
 const textField = {
@@ -80,7 +92,7 @@ const Lobby = () => {
 
   return (
     <Paper sx={paper}>
-        <h1>Lobby</h1>
+      <Typography variant='h4' sx={typography} align='center'>Lobby</Typography>
           <Card sx={card}>
             <CardContent sx={cardContent}>
             <div style={labToTexSpac}>

@@ -39,7 +39,14 @@ const box = {
 }
 
 const typography = {
-  color: '#fff'
+  color: '#fff',
+  marginTop: {
+    xs: '9.5vh',
+    sm: '5vh',
+    md: '5vh',
+    lg: '5vh',
+    xl: '6vh'
+  },
 };
 
 const callButton = {
@@ -167,7 +174,7 @@ const Room = () => {
   return (
     <div style={head}>
         <Typography variant='h4' sx={typography}>Room</Typography>
-        <Typography variant='body1' sx={typography}>{remoteSocketId ? "Connected" : "No one in room" }</Typography>
+        <Typography variant='body1' sx={typography} align='center'>{remoteSocketId ? "Connected" : "No one in room" }</Typography>
         {
           remoteSocketId && 
           <IconButton sx={callButton} size='large' onClick={handleCallUser}>
