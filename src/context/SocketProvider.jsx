@@ -11,7 +11,7 @@ export const useSocket = () => {
 export const SocketProvider = (props) => {
 
     const socket = useMemo(() => 
-        io("localhost:8000")
+        io("https://vid-socket-io.onrender.com/")
     , []);
 
     return (
