@@ -15,7 +15,7 @@ const head = {
   //   sm: '97vh',
   //   md: '97vh'
   // }
-  height: '97vh'
+  height: '94vh'
 };
 
 const paper = {
@@ -24,9 +24,10 @@ const paper = {
     xs: 'column',
     md: 'row',
   },
-  justifyContent: 'space-around',
+  justifyContent: 'space-evenly',
   backgroundColor: 'inherit',
-  marginTop: '6vh'
+  marginTop: '4vh',
+  height: '50vh'
 };
 
 const card = {
@@ -35,7 +36,9 @@ const card = {
   borderRadius: '20px'
 };
 const box = {
-  marginTop: '2vh'
+  marginTop: '2vh',
+  display: 'flex',
+  justifyContent: 'center'
 }
 
 const typography = {
@@ -48,6 +51,16 @@ const typography = {
     xl: '6vh'
   },
 };
+const typography2 = {
+  color: '#fff',
+  marginTop: {
+    xs: '3vh',
+    sm: '5vh',
+    md: '5vh',
+    lg: '5vh',
+    xl: '3vh'
+  },
+};
 
 const callButton = {
   backgroundColor: 'red',
@@ -58,8 +71,13 @@ const callButton = {
   margin: '10px'
 };
 const acceptButton = {
-  marginLeft: '20px'
+  marginLeft: '20px',
+  padding: '0'
 }
+
+const reactPlayer = {
+  height: '20vh'
+};
 
 const Room = () => {
 
@@ -174,26 +192,28 @@ const Room = () => {
   return (
     <div style={head}>
         <Typography variant='h4' sx={typography}>Room</Typography>
-        <Typography variant='body1' sx={typography} align='center'>{remoteSocketId ? "Connected" : "No one in room" }</Typography>
+        <Typography variant='body1' sx={typography2} align='center'>{remoteSocketId ? "Connected" : "No one in room" }</Typography>
+        <Box sx={box}>
         {
           remoteSocketId && 
           <IconButton sx={callButton} size='large' onClick={handleCallUser}>
             <CallIcon fontSize='inherit'/>
           </IconButton>
         }
-        { myStream && <Button variant='contained' sx={acceptButton} onClick={sendStream}>Accept</Button>}
+        { myStream && <Button variant='contained' style={acceptButton} onClick={sendStream}>Accept</Button>}
+        </Box>
         <Paper sx={paper}>
         {
           myStream && 
           <Card sx={card}>
-            <ReactPlayer playing url={myStream} />
+            <ReactPlayer playing url={myStream} style={reactPlayer}/>
             <Typography sx={typography}>You</Typography>
           </Card>
         }
         {
           remoteStream && 
           <Card sx={card}>
-            <ReactPlayer playing muted url={remoteStream}/>
+            <ReactPlayer playing muted url={remoteStream} sx={reactPlayer}/>
             <Typography sx={typography}>Guest</Typography>
           </Card>
         }
