@@ -15,7 +15,7 @@ const head = {
   //   sm: '97vh',
   //   md: '97vh'
   // }
-  height: '94vh'
+  height: '94vh',
 };
 
 const paper = {
@@ -27,18 +27,32 @@ const paper = {
   justifyContent: 'space-evenly',
   backgroundColor: 'inherit',
   marginTop: '4vh',
-  height: '50vh'
+  marginLeft: {
+    xs: '9vw',
+    xl: '0px'
+  },
+  height: '55vh'
 };
 
 const card = {
+  display: 'flex',
+  justifyContent: 'center',
   backgroundColor: '#373c47',
   padding: '1rem 0 0 0',
-  borderRadius: '20px'
+  borderRadius: '20px',
+  height: {
+    xs: '25vh',
+    xl: '40vh'
+  },
+  width: {
+    xs: '80vw',
+    xl: '27vw'
+  }
 };
 const box = {
   marginTop: '2vh',
   display: 'flex',
-  justifyContent: 'center'
+  justifyContent: 'center',
 }
 
 const typography = {
@@ -206,15 +220,15 @@ const Room = () => {
         {
           myStream && 
           <Card sx={card}>
-            <ReactPlayer playing url={myStream} style={reactPlayer}/>
-            <Typography sx={typography}>You</Typography>
+            <ReactPlayer playing url={myStream} style={reactPlayer} height={'95%'} width={'100%'} />
+            {/* <Typography sx={typography}>You</Typography> */}
           </Card>
         }
         {
           remoteStream && 
           <Card sx={card}>
-            <ReactPlayer playing muted url={remoteStream} sx={reactPlayer}/>
-            <Typography sx={typography}>Guest</Typography>
+            <ReactPlayer playing muted url={remoteStream} sx={reactPlayer} height={'95%'} width={'100%'} />
+            {/* <Typography sx={typography}>Guest</Typography> */}
           </Card>
         }
         </Paper>
